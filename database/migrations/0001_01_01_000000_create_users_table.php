@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,15 +7,21 @@ return new class extends Migration {
 
     public function up(): void
     {
-        // USERS tábla
         Schema::create('users', function (Blueprint $table) {
-            $table->id('user_id');                 // Elsődleges kulcs 'user_id' néven
+            $table->id('user_id');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();               // A "maradjak bejelentkezve" funkcióhoz
+            $table->rememberToken();
+
             $table->unsignedInteger('age')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
+
+            $table->unsignedInteger('weight')->nullable();
+            $table->unsignedInteger('height')->nullable();
+
+            $table->unsignedInteger('calorie_goal')->nullable();
+
             $table->timestamps();
         });
 

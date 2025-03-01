@@ -213,7 +213,7 @@
                                     <!-- Set hozzáadása / törlése gombok -->
                                     <div class="flex justify-end mt-3 md:mt-4 space-x-2 md:space-x-3">
                                         <button type="button"
-                                            class="add-set bg-purple-100 hover:bg-purple-200 text-purple-600 px-3 md:px-3 py-2 rounded-lg transition-colors flex items-center"
+                                            class="add-set bg-purple-100 hover:bg-purple-200 text-purple-600 px-3 md:px-4 py-2 rounded-lg transition-colors flex items-center"
                                             data-day-index="{{ $dayIndex }}"
                                             data-exercise-index="{{ $exerciseIndex }}">
                                             <i class="fas fa-plus-circle "></i>

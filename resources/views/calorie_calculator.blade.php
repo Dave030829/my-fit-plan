@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Kalória Kalkulátor</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -26,6 +27,8 @@
             @php
                 $defaultAge = Auth::check() ? Auth::user()->age : '';
                 $defaultGender = Auth::check() ? Auth::user()->gender : '';
+                $defaultWeight = Auth::check() ? Auth::user()->weight : '';
+                $defaultHeight = Auth::check() ? Auth::user()->height : '';
             @endphp
 
             <div class="space-y-6">
@@ -71,7 +74,7 @@
                         <input type="number" id="weightInput"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl 
                                focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
-                            placeholder="Pl. 70" />
+                            placeholder="Pl. 70" value="{{ $defaultWeight }}" />
                     </div>
                 </div>
 
@@ -86,7 +89,7 @@
                         <input type="number" id="heightInput"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl 
                                focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
-                            placeholder="Pl. 175" />
+                            placeholder="Pl. 175" value="{{ $defaultHeight }}" />
                     </div>
                 </div>
 
@@ -133,7 +136,8 @@
                 <h2 class="text-2xl font-bold text-purple-600 mb-4">Eredmények:</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <!-- Fenntartási kalória -->
-                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 p-4 rounded-xl text-white">
+                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 p-4 rounded-xl text-white cursor-pointer"
+                        onclick="saveGoal(parseFloat(document.getElementById('maintenanceResult').innerText))">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-light">Fenntartási kalória</p>
@@ -144,7 +148,8 @@
                     </div>
 
                     <!-- Fogyáshoz javasolt -->
-                    <div class="bg-gradient-to-br from-pink-500 to-red-500 p-4 rounded-xl text-white">
+                    <div class="bg-gradient-to-br from-pink-500 to-red-500 p-4 rounded-xl text-white cursor-pointer"
+                        onclick="saveGoal(parseFloat(document.getElementById('lossResult').innerText))">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-light">Fogyáshoz javasolt</p>
@@ -155,7 +160,8 @@
                     </div>
 
                     <!-- Tömegnöveléshez javasolt -->
-                    <div class="bg-gradient-to-br from-green-600 to-emerald-600 p-4 rounded-xl text-white">
+                    <div class="bg-gradient-to-br from-green-400 to-green-700 p-4 rounded-xl text-white cursor-pointer"
+                        onclick="saveGoal(parseFloat(document.getElementById('gainResult').innerText))">
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-light">Tömegnöveléshez javasolt</p>
@@ -190,7 +196,6 @@
                 }
 
                 const tdee = bmr * activity;
-
                 const lossCalories = tdee - 500;
                 const gainCalories = tdee + 500;
 
@@ -199,6 +204,32 @@
                 document.getElementById('gainResult').innerText = `${gainCalories.toFixed(1)} kcal/nap`;
 
                 document.getElementById('resultsSection').classList.remove('hidden');
+            }
+
+            function saveGoal(calorieValue) {
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                fetch("{{ route('profile.goal.update') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({
+                            calorie_goal: calorieValue
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Cél beállítva: " + calorieValue + " kcal/nap");
+                        } else {
+                            alert("Hiba történt a cél beállításakor!");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Hiba történt a cél beállításakor!");
+                    });
             }
         </script>
     </body>

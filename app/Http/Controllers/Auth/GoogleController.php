@@ -24,27 +24,22 @@ class GoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
 
-            // Ellenőrizd, hogy az e-mail cím elérhető-e
             if (!$googleUser->getEmail()) {
                 return redirect()->route('login')->withErrors(['error' => 'Nem található érvényes e-mail cím a Google-fiókban.']);
             }
 
-            // Keresd meg a felhasználót az adatbázisban
             $user = User::where('email', $googleUser->getEmail())->first();
 
             if (!$user) {
-                // Ha a felhasználó nem létezik, hozz létre egy újat
                 $user = User::create([
-                    'username' => $googleUser->getName() ?? 'Ismeretlen felhasználó', // Ha nincs név, állítsd be alapértelmezetten
+                    'username' => $googleUser->getName() ?? 'Ismeretlen felhasználó',
                     'email' => $googleUser->getEmail(),
-                    'password' => bcrypt(str()->random(16)), // Véletlenszerű jelszó
+                    'password' => bcrypt(str()->random(16)),
                 ]);
             }
 
-            // Jelentkeztesd be a felhasználót
             Auth::login($user, true);
 
-            // Átirányítás a kezdőoldalra
             return redirect('/')->with('success', 'Sikeresen bejelentkeztél Google-fiókkal!');
         } catch (\Exception $e) {
             \Log::error('Google login exception: ' . $e->getMessage());

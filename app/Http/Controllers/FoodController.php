@@ -17,12 +17,6 @@ class FoodController extends Controller
         return view('calorie_tracker', compact('foods', 'search'));
     }
 
-
-    public function create()
-    {
-        return view('foods.create');
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -39,12 +33,6 @@ class FoodController extends Controller
 
         return redirect()->route('foods.index')
             ->with('success', 'Étel sikeresen létrehozva!');
-    }
-
-
-    public function edit(Food $food)
-    {
-        return view('foods.edit', compact('food'));
     }
 
     public function update(Request $request, Food $food)

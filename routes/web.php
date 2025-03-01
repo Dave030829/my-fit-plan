@@ -40,23 +40,26 @@ Route::get('/', function () {
 | Edzésnapok
 |--------------------------------------------------------------------------
 */
-Route::get('/workout/create', [WorkoutDayController::class, 'create'])->name('workout.create');
-Route::post('/workout/store', [WorkoutDayController::class, 'store'])->name('workout.store');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/workout/create', [WorkoutDayController::class, 'create'])->name('workout.create');
+    Route::post('/workout/store', [WorkoutDayController::class, 'store'])->name('workout.store');
+});
 /*
 |--------------------------------------------------------------------------
 | Kalória-követő (Foods)
 |--------------------------------------------------------------------------
 */
 
-Route::get('/calorie-tracker', [FoodController::class, 'index'])->name('calorie.tracker');
+Route::middleware('auth')->group(function () {
+    Route::get('/calorie-tracker', [FoodController::class, 'index'])->name('calorie.tracker');
 
-Route::get('/foods/search', [FoodController::class, 'searchAjax'])->name('foods.search');
+    Route::get('/foods/search', [FoodController::class, 'searchAjax'])->name('foods.search');
 
-Route::get('/foods/autocomplete', [FoodController::class, 'autocomplete'])->name('foods.autocomplete');
+    Route::get('/foods/autocomplete', [FoodController::class, 'autocomplete'])->name('foods.autocomplete');
 
-Route::resource('foods', FoodController::class)->except(['show']);
+    Route::resource('foods', FoodController::class)->except(['show']);
 
+});
 /*
 |--------------------------------------------------------------------------
 | Felhasználói profil (auth middleware-rel védve)
@@ -78,3 +81,7 @@ Route::patch('/food-diary/{id}', [FoodDiaryController::class, 'update'])->name('
 Route::get('/calorie-calculator', function () {
     return view('calorie_calculator');
 })->name('calorie.calculator');
+
+Route::post('/profile/goal/update', [ProfileController::class, 'updateGoal'])
+    ->name('profile.goal.update')
+    ->middleware('auth');
