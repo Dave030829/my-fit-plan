@@ -8,17 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Megjeleníti a bejelentkezési űrlapot.
-     */
+
     public function showLoginForm()
     {
         return view('login');
     }
 
-    /**
-     * Kezeli a bejelentkezést.
-     */
     public function login(Request $request)
     {
         // Validáció
@@ -27,19 +22,18 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Bejelentkezés
-        if (Auth::attempt($credentials)) {
-            // Sikeres bejelentkezés után átirányítás a kezdőoldalra
+        // Eldöntjük, hogy a felhasználó pipálta-e be a 'Maradjak bejelentkezve' opciót
+        $remember = $request->has('remember');
+
+        // Ha a 'remember' paraméter true, a Laravel beállítja a "remember_token"-t
+        if (Auth::attempt($credentials, $remember)) {
             return redirect()->route('welcome')->with('success', 'Sikeresen bejelentkeztél!');
         }
 
-        // Hibás adatok esetén visszairányítás
         return back()->withErrors(['email' => 'Helytelen bejelentkezési adatok.']);
     }
 
-    /**
-     * Kijelentkeztetés
-     */
+
     public function logout(Request $request)
     {
         Auth::logout();
