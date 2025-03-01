@@ -47,9 +47,10 @@ class GoogleController extends Controller
             // Átirányítás a kezdőoldalra
             return redirect('/')->with('success', 'Sikeresen bejelentkeztél Google-fiókkal!');
         } catch (\Exception $e) {
-            // Hiba esetén vissza az előző oldalra
+            \Log::error('Google login exception: ' . $e->getMessage());
             return redirect()->route('login')->withErrors(['error' => 'Hiba történt a Google bejelentkezés során.']);
         }
+
     }
 
 }

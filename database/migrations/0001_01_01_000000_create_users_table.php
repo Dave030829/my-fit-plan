@@ -8,22 +8,26 @@ return new class extends Migration {
 
     public function up(): void
     {
+        // USERS tábla
         Schema::create('users', function (Blueprint $table) {
-            $table->id('user_id');
+            $table->id('user_id');                 // Elsődleges kulcs 'user_id' néven
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->rememberToken();               // A "maradjak bejelentkezve" funkcióhoz
             $table->unsignedInteger('age')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->timestamps();
         });
 
+        // PASSWORD_RESET_TOKENS tábla
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
 
+        // SESSIONS tábla
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
