@@ -1,39 +1,24 @@
-<!DOCTYPE html>
-<html lang="hu">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Kalória Nyilvántartó</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.2.7/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-
 @extends('layouts.app')
 @section('content')
 
-    <body class="bg-gradient-to-br from-purple-50 to-indigo-50 min-h-screen py-6 text-sm md:text-base">
+    <body
+        class="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 min-h-screen py-6 text-sm md:text-base">
+        @include('partials.flash-messages')
         <div class="max-w-7xl mx-auto px-4 mt-10">
             <div class="text-center mb-12">
                 <h1
-                    class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    class="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
                     <i class="fas fa-fire mr-4"></i>Kalória Nyilvántartó
                 </h1>
-                <p class="text-xs md:text-base text-gray-600 mt-3">Kövesd az étrended és érd el a céljaid!</p>
+                <p class="text-xs md:text-base text-gray-600 dark:text-gray-300 mt-3">
+                    Kövesd az étrended és érd el a céljaid!
+                </p>
             </div>
 
-            <!-- Sikeres üzenet -->
-            @if (session('success'))
-                <div class="bg-green-50 border-l-4 border-green-500 p-3 md:p-4 mb-6 rounded-lg animate-fade-in">
-                    <div class="flex">
-                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
-                        <p class="text-xs md:text-sm text-green-700">{{ session('success') }}</p>
-                    </div>
-                </div>
-            @endif
-
             <!-- Új étel hozzáadása -->
-            <div class="bg-white/90 backdrop-blur-sm shadow-2xl rounded-2xl p-5 md:p-8 mb-8">
-                <h2 class="text-xl md:text-2xl font-bold text-purple-600 mb-4 md:mb-6 flex items-center">
+            <div
+                class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-2xl rounded-2xl p-5 md:p-8 mb-8 dark:text-gray-100">
+                <h2 class="text-xl md:text-2xl font-bold text-purple-600 dark:text-teal-400 mb-4 md:mb-6 flex items-center">
                     <i class="fas fa-plus-circle mr-2"></i>Egyedi étel hozzáadása
                 </h2>
                 <form method="POST" action="{{ route('foods.store') }}" class="space-y-4 md:space-y-6">
@@ -43,7 +28,7 @@
                         <div class="relative">
                             <i class="fas fa-tag absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <input type="text" name="name" required placeholder="Étel neve"
-                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                         </div>
 
                         <!-- Kalória és Fehérje -->
@@ -51,13 +36,13 @@
                             <div class="relative">
                                 <i class="fas fa-burn absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <input type="number" name="kcal" required placeholder="Kalória"
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                             </div>
                             <div class="relative">
                                 <i
                                     class="fa-solid fa-fish absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <input type="number" step="0.1" name="protein" required placeholder="Fehérje (g)"
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                             </div>
                         </div>
 
@@ -67,13 +52,13 @@
                                 <i
                                     class="fa-solid fa-droplet absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <input type="number" step="0.1" name="fat" required placeholder="Zsír (g)"
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                             </div>
                             <div class="relative">
                                 <i
                                     class="fas fa-bread-slice absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <input type="number" step="0.1" name="carbs" required placeholder="Szénhidrát (g)"
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                             </div>
                         </div>
 
@@ -83,13 +68,13 @@
                                 <i
                                     class="fas fa-balance-scale absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <input type="number" name="quantity" required placeholder="Mennyiség"
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all">
                             </div>
-                            <div class="relative">
+                            <div class="relative dark:text-gray-100">
                                 <i
                                     class="fas fa-ruler-combined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 <select name="unit" required
-                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 appearance-none transition-all">
+                                    class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 appearance-none transition-all">
                                     <option value="db">darab</option>
                                     <option value="g">gramm (g)</option>
                                     <option value="ml">milliliter (ml)</option>
@@ -98,80 +83,87 @@
                         </div>
                     </div>
                     <button type="submit"
-                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 md:py-4 px-8 rounded-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:shadow-xl text-sm md:text-base">
+                        class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-600 dark:to-blue-600 hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-700 dark:hover:to-blue-700 text-white font-bold py-3 md:py-4 px-8 rounded-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:shadow-xl text-sm md:text-base">
                         <i class="fas fa-plus-circle mr-2"></i>Hozzáadás
                     </button>
                 </form>
             </div>
 
             <!-- Asztali nézet -->
-            <div class="hidden md:block bg-gray-100 p-3 md:p-4 rounded-xl shadow-lg">
+            <div class="hidden md:block bg-gray-100 dark:bg-gray-800 p-3 md:p-4 rounded-xl shadow-lg">
                 <div class="flex items-center mb-4 md:mb-6">
-                    <h2 class="text-xl md:text-2xl font-bold text-purple-600 flex items-center">
-                        <i class="fas fa-list-ul mr-2 bg-purple-100 p-2 rounded-xl"></i>
+                    <h2 class="text-xl md:text-2xl font-bold text-purple-600 dark:text-teal-400 flex items-center">
+                        <i class="fas fa-list-ul mr-2 bg-purple-100 dark:bg-gray-700 p-2 rounded-xl"></i>
                         Napi étel lista
                     </h2>
                     <div class="ml-auto">
                         <button onclick="openFoodModal()"
-                            class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-base">
+                            class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-600 dark:to-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-700 dark:hover:to-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-base">
                             <i class="fas fa-plus mr-2"></i>Új étel
                         </button>
                     </div>
                 </div>
                 <!-- Dátum navigáció -->
-                <div class="flex items-center justify-center mb-3 md:mb-4 bg-gray-200 rounded-xl p-2">
-                    <button onclick="prevDate()" class="p-2 rounded-lg bg-white hover:bg-purple-100 transition-colors">
-                        <i class="fas fa-chevron-left text-purple-600 text-lg"></i>
+                <div class="flex items-center justify-center mb-3 md:mb-4 bg-gray-200 dark:bg-gray-700 rounded-xl p-2">
+                    <button onclick="prevDate()"
+                        class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-purple-100 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-chevron-left text-purple-600 dark:text-teal-400 text-lg"></i>
                     </button>
                     <div id="dateDisplay"
-                        class="mx-3 md:mx-4 text-lg md:text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                        class="mx-3 md:mx-4 text-lg md:text-xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
                     </div>
-                    <button onclick="nextDate()" class="p-2 rounded-lg bg-white hover:bg-purple-100 transition-colors">
-                        <i class="fas fa-chevron-right text-purple-600 text-lg"></i>
+                    <button onclick="nextDate()"
+                        class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-purple-100 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-chevron-right text-purple-600 dark:text-teal-400 text-lg"></i>
                     </button>
                 </div>
                 <!-- Kiválasztott ételek -->
-                <div class="overflow-x-auto rounded-xl border-2 border-gray-200 text-xs md:text-sm">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gradient-to-r from-purple-600 to-indigo-600">
+                <div class="overflow-x-auto rounded-xl border-2 border-gray-200 dark:border-gray-700 text-xs md:text-sm">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead
+                            class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-400 dark:to-blue-400">
                             <tr>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase">Név</th>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase">Mennyiség</th>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase">Kcal</th>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase">Fehérje</th>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase">Zsír</th>
-                                <th class="px-6 py-3 text-left font-semibold text-white uppercase bg-orange-700">Szénhidrát
+                                <th class="px-6 py-3 text-left font-semibold text-white uppercase">Szénhidrát
                                 </th>
                                 <th class="px-6 py-3 text-left font-semibold text-white uppercase"></th>
                             </tr>
                         </thead>
-                        <tbody id="selectedFoodsBody" class="bg-white divide-y divide-gray-200">
+                        <tbody id="selectedFoodsBody"
+                            class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         </tbody>
                     </table>
                 </div>
             </div>
 
             <!-- Telefonos nézet -->
-            <div class="block md:hidden bg-gray-100 p-3 md:p-4 rounded-xl shadow-lg">
+            <div class="block md:hidden bg-gray-100 dark:bg-gray-800 p-3 md:p-4 rounded-xl shadow-lg">
                 <div class="flex items-center justify-between mb-3 md:mb-4">
-                    <h2 class="text-base md:text-xl font-bold text-purple-600 flex items-center">
-                        <i class="fas fa-list-ul bg-purple-100 p-2 rounded-xl mr-2"></i>
+                    <h2 class="text-base md:text-xl font-bold text-purple-600 dark:text-teal-400 flex items-center">
+                        <i class="fas fa-list-ul bg-purple-100 dark:bg-gray-700 p-2 rounded-xl mr-2"></i>
                         Napi étel lista
                     </h2>
                     <button onclick="openFoodModal()"
-                        class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all text-xs">
+                        class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-600 dark:to-blue-600 text-white px-6 py-2 rounded-xl hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-700 dark:hover:to-blue-700 transition-all text-xs">
                         <i class="fas fa-plus mr-2"></i>Új étel
                     </button>
                 </div>
                 <!-- Telefonos nézet dátum navigáció -->
                 <div class="flex items-center justify-center mb-3 md:mb-4">
-                    <button onclick="prevDate()" class="p-2 rounded bg-white hover:bg-purple-100 transition-colors">
-                        <i class="fas fa-chevron-left text-purple-600"></i>
+                    <button onclick="prevDate()"
+                        class="p-2 rounded bg-white dark:bg-gray-800 hover:bg-purple-100 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-chevron-left text-purple-600 dark:text-teal-400"></i>
                     </button>
-                    <div id="dateDisplayMobile" class="mx-3 text-base md:text-lg font-bold text-purple-600">
+                    <div id="dateDisplayMobile"
+                        class="mx-3 text-base md:text-lg font-bold text-purple-600 dark:text-teal-400">
                     </div>
-                    <button onclick="nextDate()" class="p-2 rounded bg-white hover:bg-purple-100 transition-colors">
-                        <i class="fas fa-chevron-right text-purple-600"></i>
+                    <button onclick="nextDate()"
+                        class="p-2 rounded bg-white dark:bg-gray-800 hover:bg-purple-100 dark:hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-chevron-right text-purple-600 dark:text-teal-400"></i>
                     </button>
                 </div>
                 <div id="selectedFoodsCards" class="space-y-4">
@@ -180,10 +172,10 @@
 
             <!-- Összegzés card -->
             <div
-                class="mt-6 md:mt-8 bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 mb-5 w-full max-w-3xl mx-auto">
+                class="mt-6 md:mt-8 bg-white dark:bg-gray-800 p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-5 w-full max-w-3xl mx-auto">
                 <div class="flex flex-col md:flex-row gap-6 items-stretch">
                     <!-- Progress Ring -->
-                    <div class="md:w-1/3 flex flex-col items-center p-4 bg-indigo-50 rounded-xl">
+                    <div class="md:w-1/3 flex flex-col items-center p-4 bg-indigo-50 dark:bg-gray-800 rounded-xl">
                         <div class="relative w-36 h-36 mb-4">
                             <svg viewBox="0 0 100 100" class="transform -rotate-90 w-full h-full">
                                 <!-- Háttér kör -->
@@ -194,55 +186,61 @@
                                     class="text-indigo-500" stroke-width="8" stroke-linecap="round" fill="none"
                                     stroke-dasharray="283" stroke-dashoffset="283" />
                             </svg>
-
                             <!-- Középső felirat -->
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <p class="text-2xl md:text-3xl font-bold text-gray-800" id="totalKcalRing">0</p>
-                                <p class="text-sm text-gray-500 mt-1">kcal</p>
+                                <p class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-300"
+                                    id="totalKcalRing">0</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">kcal</p>
                             </div>
                         </div>
-                        <div class="text-center bg-blue-200 p-2 px-10 rounded-xl">
-                            <h3 class="font-semibold text-blue-700 mb-1">Kalória limit</h3>
-                            <p class="text-md text-blue-500">{{ Auth::user()->calorie_goal }} kcal</p>
+                        <div class="text-center bg-blue-200 dark:bg-blue-800 p-2 px-10 rounded-xl">
+                            <h3 class="font-semibold text-blue-700 dark:text-blue-400 mb-1">Kalória limit</h3>
+                            <p class="text-md text-blue-500 dark:text-blue-400">{{ Auth::user()->calorie_goal }} kcal</p>
                         </div>
                     </div>
 
                     <div class="md:w-2/3 flex flex-col gap-4">
                         <!-- Protein Card -->
-                        <div class="bg-gradient-to-br from-red-500 to-red-300 p-4 rounded-xl shadow-sm">
+                        <div
+                            class="bg-gradient-to-br from-red-500 to-red-300 dark:from-red-800 dark:to-red-600 p-4 rounded-xl shadow-sm">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-sm text-white mb-1">Fehérje</p>
                                     <p class="text-xl font-bold text-white" id="totalProtein">0 g</p>
                                 </div>
-                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-fish text-red-700"></i>
+                                <div
+                                    class="w-10 h-10 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-fish text-red-700 dark:text-red-300"></i>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Fat Card -->
-                        <div class="bg-gradient-to-br from-yellow-500 to-yellow-300 p-4 rounded-xl shadow-sm">
+                        <div
+                            class="bg-gradient-to-br from-yellow-500 to-yellow-300 dark:from-yellow-700 dark:to-yellow-500 p-4 rounded-xl shadow-sm">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-sm text-white mb-1">Zsír</p>
                                     <p class="text-xl font-bold text-white" id="totalFat">0 g</p>
                                 </div>
-                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                                    <i class="fa-solid fa-droplet text-yellow-700"></i>
+                                <div
+                                    class="w-10 h-10 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center">
+                                    <i class="fa-solid fa-droplet text-yellow-700 dark:text-yellow-300"></i>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Carbs Card -->
-                        <div class="bg-gradient-to-br from-blue-500 to-blue-300 p-4 rounded-xl shadow-sm">
+                        <div
+                            class="bg-gradient-to-br from-blue-500 to-blue-300 dark:from-blue-800 dark:to-blue-600 p-4 rounded-xl shadow-sm">
                             <div class="flex items-center justify-between">
                                 <div>
                                     <p class="text-sm text-white mb-1">Szénhidrát</p>
                                     <p class="text-xl font-bold text-white" id="totalCarbs">0 g</p>
                                 </div>
-                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <i class="fas fa-bread-slice text-blue-700"></i>
+                                <div
+                                    class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-bread-slice text-blue-700 dark:text-blue-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -252,54 +250,62 @@
 
             <!-- Food Search Modal -->
             <div id="foodModal"
-                class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-5 text-sm md:text-base">
-                <div class="bg-white rounded-xl shadow-lg p-4 md:p-6 w-full max-w-md relative">
-                    <button class="absolute top-2 left-2 text-gray-600 hover:text-gray-800" onclick="closeFoodModal()">
+                class="fixed inset-0 bg-black/30 backdrop-blur-sm hidden items-center justify-center p-5 text-sm md:text-base">
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 md:p-6 w-full max-w-md relative">
+                    <button
+                        class="absolute top-2 left-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100"
+                        onclick="closeFoodModal()">
                         <i class="fas fa-times text-lg"></i>
                     </button>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-center">Étel keresése</h3>
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-center dark:text-gray-300">
+                        Étel keresése
+                    </h3>
                     <div class="relative mb-3 md:mb-4">
                         <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="text" id="modalFoodSearch" oninput="handleFoodSearch()"
-                            class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                            class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all dark:text-gray-300"
                             placeholder="Kezdj el gépelni...">
                     </div>
-                    <ul id="searchResults" class="border-t border-gray-200 pt-2 max-h-60 overflow-auto">
+                    <ul id="searchResults"
+                        class="border-t border-gray-200 dark:border-gray-700 pt-2 max-h-60 overflow-auto dark:text-gray-300">
                     </ul>
                 </div>
             </div>
 
+
             <!-- Edit Quantity Modal -->
             <div id="editModal"
-                class="fixed inset-0 hidden items-center justify-center p-5 bg-black bg-opacity-50 z-50 text-sm md:text-base">
+                class="fixed inset-0 hidden items-center justify-center p-5 bg-black/30 backdrop-blur-sm  z-50 text-sm md:text-base dark:text-white">
                 <div
-                    class="bg-white backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-2xl w-full max-w-sm relative transform transition-all duration-300">
-                    <button class="absolute top-4 right-4 text-gray-600 hover:text-gray-800 transition-colors"
+                    class="bg-white dark:bg-gray-800 backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-2xl w-full max-w-sm relative transform transition-all duration-300">
+                    <button
+                        class="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
                         onclick="closeEditModal()">
                         <i class="fas fa-times text-xl"></i>
                     </button>
                     <h2
-                        class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                        class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
                         <i class="fas fa-edit mr-2"></i>Mennyiség módosítása
                     </h2>
                     <div class="mb-4 md:mb-6">
-                        <label for="editQuantityInput" class="block mb-1 md:mb-2 font-semibold text-gray-700">Új
-                            mennyiség:</label>
+                        <label for="editQuantityInput"
+                            class="block mb-1 md:mb-2 font-semibold text-gray-700 dark:text-gray-300">Új mennyiség:</label>
                         <div class="relative">
                             <i
                                 class="fas fa-balance-scale absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <input id="editQuantityInput" type="number" min="1"
-                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all"
+                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all"
                                 placeholder="Mennyiség">
                         </div>
                     </div>
                     <div class="mb-4 md:mb-6">
-                        <label for="editUnitSelect" class="block mb-1 md:mb-2 font-semibold text-gray-700">Egység:</label>
+                        <label for="editUnitSelect"
+                            class="block mb-1 md:mb-2 font-semibold text-gray-700 dark:text-gray-300">Egység:</label>
                         <div class="relative">
                             <i
                                 class="fas fa-ruler-combined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                             <select id="editUnitSelect"
-                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-200 appearance-none transition-all">
+                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 appearance-none transition-all dark:bg-gray-900">
                                 <option value="db">darab</option>
                                 <option value="g">gramm (g)</option>
                                 <option value="ml">milliliter (ml)</option>
@@ -308,7 +314,7 @@
                     </div>
                     <div class="flex justify-end">
                         <button
-                            class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-base"
+                            class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-600 dark:to-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-700 dark:hover:to-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-base"
                             onclick="saveEditQuantity()">
                             <i class="fas fa-save mr-2"></i>Mentés
                         </button>
@@ -321,7 +327,6 @@
                     transition: stroke-dashoffset 0.6s ease;
                 }
             </style>
-
 
             <script>
                 function updateProgress(current, goal) {
@@ -347,8 +352,6 @@
 
                     document.getElementById('totalKcalRing').textContent = current.toFixed(1);
                 }
-
-
 
                 let selectedFoods = [];
                 let currentFoodDiaryId = null;
@@ -411,14 +414,15 @@
                         const response = await fetch("{{ route('foods.search') }}?term=" + encodeURIComponent(query));
                         const data = await response.json();
                         if (!data.length) {
-                            searchResults.innerHTML = '<li class="px-3 py-2 text-gray-500">Nincs találat.</li>';
+                            searchResults.innerHTML =
+                                '<li class="px-3 py-2 text-gray-500 dark:text-gray-300">Nincs találat.</li>';
                             return;
                         }
                         let html = '';
                         data.forEach(food => {
                             const foodStr = encodeURIComponent(JSON.stringify(food));
                             html += `
-      <li class="cursor-pointer px-3 py-2 hover:bg-purple-50 transition-colors"
+      <li class="cursor-pointer px-3 py-2 hover:bg-purple-50 dark:hover:bg-gray-700 transition-colors"
       onclick="addFoodToSelected('${foodStr}')">
       <strong>${food.name}</strong> - ${food.kcal} kcal, ${food.protein} g fehérje, ${food.fat} g zsír, ${food.carbs} g szénhidrát (<em>${food.unit}</em>)
       </li>
@@ -484,23 +488,23 @@
                         let rows = '';
                         selectedFoods.forEach(food => {
                             rows += `
-      <tr class="hover:bg-gray-50 transition-colors">
-      <td class="px-6 py-3 text-gray-900">${food.name}</td>
-      <td class="px-6 py-3 text-gray-600">
+      <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+      <td class="px-6 py-3 text-gray-900 dark:text-gray-300">${food.name}</td>
+      <td class="px-6 py-3 text-gray-600 dark:text-gray-400">
       <div class="flex items-center">
       <span>${food.quantity} ${food.unit}</span>
-      <button class="text-blue-600 px-3 py-1 rounded-lg"
+      <button class="text-blue-600 dark:text-blue-400 px-3 py-1 rounded-lg"
       onclick="openEditModal(${food.id}, ${food.quantity}, '${food.unit}')">
       <i class="fas fa-edit mr-1"></i>
       </button>
       </div>
       </td>
-      <td class="px-6 py-3 font-semibold text-purple-600">${food.kcal ?? 'n.a.'} kcal</td>
-      <td class="px-6 py-3 text-gray-600">${food.protein ?? 'n.a.'} g</td>
-      <td class="px-6 py-3 text-gray-600">${food.fat ?? 'n.a.'} g</td>
-      <td class="px-6 py-3 text-gray-600">${food.carbs ?? 'n.a.'} g</td>
+      <td class="px-6 py-3 font-semibold text-purple-600 dark:text-teal-400">${food.kcal ?? 'n.a.'} kcal</td>
+      <td class="px-6 py-3 text-gray-600 dark:text-gray-400">${food.protein ?? 'n.a.'} g</td>
+      <td class="px-6 py-3 text-gray-600 dark:text-gray-400">${food.fat ?? 'n.a.'} g</td>
+      <td class="px-6 py-3 text-gray-600 dark:text-gray-400">${food.carbs ?? 'n.a.'} g</td>
       <td class="px-6 py-3">
-      <button class="bg-red-100 hover:bg-red-200 text-red-600 px-3 py-1 rounded-lg transition-colors"
+      <button class="bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 text-red-600 px-3 py-1 rounded-lg transition-colors"
       onclick="removeFood(${food.id})">
       <i class="fas fa-trash"></i>
       </button>
@@ -515,33 +519,76 @@
                         let cardsHtml = '';
                         selectedFoods.forEach(food => {
                             cardsHtml += `
-      <div class="bg-gray-50 p-3 rounded-xl shadow hover:shadow-md transition-all">
-      <div class="flex justify-between items-center mb-2">
-      <h3 class="text-base font-semibold text-gray-800">${food.name}</h3>
-      <button class="text-red-600 hover:text-red-800" onclick="removeFood(${food.id})">
-      <i class="fas fa-trash"></i>
-      </button>
-      </div>
-      <div class="text-xs md:text-sm text-gray-600 mb-2">
-      Mennyiség: ${food.quantity} ${food.unit}
-      </div>
-      <div class="flex flex-wrap gap-2 text-xs md:text-sm">
-      <span class="text-purple-600 font-semibold">${food.kcal ?? 'n.a.'} kcal</span>
-      <span class="text-green-600 font-semibold">${food.protein ?? 'n.a.'} g fehérje</span>
-      <span class="text-blue-600 font-semibold">${food.fat ?? 'n.a.'} g zsír</span>
-      <span class="text-orange-600 font-semibold">${food.carbs ?? 'n.a.'} g szénhidrát</span>
-      </div>
-      <div class="flex justify-end mt-2">
-      <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded text-xs md:text-sm" 
-      onclick="openEditModal(${food.id}, ${food.quantity}, '${food.unit}')">
-      <i class="fas fa-edit mr-1"></i>Edit
-      </button>
-      </div>
-      </div>
-      `;
+                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-xl shadow hover:shadow-md transition-all">
+                    <!-- Felső sáv: Név és Törlés -->
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-300">
+                            ${food.name}
+                        </h3>
+                        <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                                onclick="removeFood(${food.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mennyiség -->
+                    <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        Mennyiség: ${food.quantity} ${food.unit}
+                    </div>
+
+                    <!-- Makrók grid elrendezésben -->
+                    <div class="grid grid-cols-2 gap-2 text-xs md:text-sm">
+                        <!-- Kcal -->
+                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
+                            <span class="font-semibold text-purple-600 dark:text-teal-400">
+                                ${food.kcal ?? 'n.a.'} kcal
+                            </span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                Kalória
+                            </span>
+                        </div>
+                        <!-- Fehérje -->
+                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
+                            <span class="font-semibold text-green-600">
+                                ${food.protein ?? 'n.a.'} g
+                            </span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                Fehérje
+                            </span>
+                        </div>
+                        <!-- Zsír -->
+                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
+                            <span class="font-semibold text-blue-600">
+                                ${food.fat ?? 'n.a.'} g
+                            </span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                Zsír
+                            </span>
+                        </div>
+                        <!-- Szénhidrát -->
+                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
+                            <span class="font-semibold text-orange-600">
+                                ${food.carbs ?? 'n.a.'} g
+                            </span>
+                            <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                Szénhidrát
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Szerkesztés gomb -->
+                    <div class="flex justify-end mt-2">
+                        <button class="bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-400 px-3 py-1 rounded text-xs md:text-sm"
+                                onclick="openEditModal(${food.id}, ${food.quantity}, '${food.unit}')">
+                            <i class="fas fa-edit mr-1"></i>Edit
+                        </button>
+                    </div>
+                </div>
+            `;
                         });
                         selectedFoodsCards.innerHTML = cardsHtml;
                     }
+
                     updateSummary();
                 }
 
@@ -616,7 +663,6 @@
                     localStorage.setItem('dailySummary', JSON.stringify(totals));
                 }
 
-
                 function updateDateDisplay() {
                     const year = selectedDate.getFullYear();
                     const month = ('0' + (selectedDate.getMonth() + 1)).slice(-2);
@@ -649,7 +695,6 @@
                     }
                 }
             </script>
+            @yield('content')
     </body>
 @endsection
-
-</html>

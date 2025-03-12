@@ -19,7 +19,6 @@ class WorkoutDayController extends Controller
         $defaultSetCount = 4;
 
         for ($dayIndex = 1; $dayIndex <= 3; $dayIndex++) {
-            // Keressük az adott nap adatait
             $workoutDay = WorkoutDay::where('user_id', $userId)
                 ->where('day_index', $dayIndex)
                 ->first();
@@ -45,8 +44,8 @@ class WorkoutDayController extends Controller
 
                 if ($exercise) {
                     $dbSetCount = ExerciseValue::where('exercise_id', $exercise->exercise_id)
-                        ->max('set_number'); // a legnagyobb set_number értéke
-                    $setCount = $dbSetCount ? max($defaultSetCount, $dbSetCount) : $defaultSetCount;
+                        ->max('set_number');
+                    $setCount = $dbSetCount ?: $defaultSetCount;
                 } else {
                     $setCount = $defaultSetCount;
                 }
@@ -80,7 +79,6 @@ class WorkoutDayController extends Controller
         for ($dayIndex = 1; $dayIndex <= 3; $dayIndex++) {
             $dayName = $request->input("day_name.$dayIndex");
 
-            // WorkoutDay upsert (user + day_index alapján)
             $workoutDay = WorkoutDay::updateOrCreate(
                 [
                     'user_id' => $userId,
@@ -91,7 +89,6 @@ class WorkoutDayController extends Controller
                 ]
             );
 
-            // A beküldött edzésblokkok (gyakorlatok) tömbje
             $submittedExercises = $request->input("exercise_name.$dayIndex", []);
             foreach ($submittedExercises as $exerciseIndex => $exerciseNameInput) {
                 if (empty($exerciseNameInput)) {

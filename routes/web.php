@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkoutDayController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DailyTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,3 +86,14 @@ Route::get('/calorie-calculator', function () {
 Route::post('/profile/goal/update', [ProfileController::class, 'updateGoal'])
     ->name('profile.goal.update')
     ->middleware('auth');
+
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('daily-tasks', [DailyTaskController::class, 'index'])
+        ->name('daily-tasks.index');
+    Route::post('daily-tasks', [DailyTaskController::class, 'store'])
+        ->name('daily-tasks.store');
+});
