@@ -4,12 +4,14 @@
     @include('partials.flash-messages')
 
     <!-- Mentés gomb -->
-    <div class="fixed bottom-[100px] md:bottom-[80px] right-0 flex justify-center z-50">
+    <div class="fixed bottom-[100px] md:bottom-[20px] right-2 flex justify-center z-50">
         <button type="submit" form="workoutForm"
-            class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-teal-700 dark:to-blue-500 hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-800 dark:hover:to-blue-600
-                   text-white font-bold py-3 md:py-4 px-5 md:px-8 rounded-l-3xl shadow-2xl
-                   transform transition-all duration-200 hover:scale-105 hover:shadow-xl text-sm md:text-base">
-            <i class="fas fa-save"></i>
+            class="dark:bg-white bg-gray-300 text-center w-48 rounded-2xl h-14 relative text-black text-xl font-semibold group">
+            <div
+                class="dark:bg-teal-400 bg-purple-400 rounded-xl h-12 w-1/4 flex items-center justify-center absolute left-1 top-[4px] group-hover:w-[184px] z-10 duration-500">
+                <i class="fa-solid fa-floppy-disk"></i>
+            </div>
+            <p class="translate-x-2">Mentés</p>
         </button>
     </div>
 
@@ -158,13 +160,13 @@
                                                         {{ $setNum }}
                                                     </td>
                                                     <td class="px-2 md:px-4 py-2">
-                                                        <input type="number"
+                                                        <input type="number" inputmode="numeric"
                                                             name="exercise_{{ $dayIndex }}_{{ $exerciseIndex }}_sets[{{ $setNum }}]"
                                                             value="{{ $setsVal }}"
                                                             class="w-12 sm:w-16 md:w-24 px-2 md:px-3 py-1 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 dark:focus:ring-teal-500 transition-all text-base bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
                                                     </td>
                                                     <td class="px-2 md:px-4 py-2">
-                                                        <input type="number"
+                                                        <input type="number" inputmode="numeric"
                                                             name="exercise_{{ $dayIndex }}_{{ $exerciseIndex }}_weight[{{ $setNum }}]"
                                                             value="{{ $weightVal }}"
                                                             class="w-12 sm:w-16 md:w-24 px-2 md:px-3 py-1 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 dark:focus:ring-teal-500 transition-all text-base bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
@@ -225,12 +227,14 @@
           </td>
           <td class="px-2 md:px-4 py-2">
             <input type="number"
+              inputmode="numeric"  
               name="exercise_${dayIndex}_${exerciseIndex}_sets[${setNum}]"
               value="0"
               class="w-12 sm:w-16 md:w-24 px-2 md:px-3 py-1 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 dark:focus:ring-teal-500 transition-all text-base bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
           </td>
           <td class="px-2 md:px-4 py-2">
             <input type="number"
+              inputmode="numeric"  
               name="exercise_${dayIndex}_${exerciseIndex}_weight[${setNum}]"
               value="0"
               class="w-12 sm:w-16 md:w-24 px-2 md:px-3 py-1 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 dark:focus:ring-teal-500 transition-all text-base bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">

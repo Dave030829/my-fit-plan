@@ -128,13 +128,13 @@
                 <div class="flex items-start gap-2 sm:gap-3 w-full">
                     <div class="flex items-center justify-center pt-1">
                         <input type="checkbox"
-                               name="tasks[\${rowCount}][completed]"
+                               name="tasks[${rowCount}][completed]"
                                value="1"
                                class="h-5 w-5 rounded border-gray-300/80 text-purple-600 dark:text-teal-400 focus:ring-2 focus:ring-purple-500/50 cursor-pointer"
                                onchange="markUnsavedChanges()">
                     </div>
                     <textarea
-                        name="tasks[\${rowCount}][task]"
+                        name="tasks[${rowCount}][task]"
                         class="w-full bg-transparent border-none focus:ring-0 text-gray-800 dark:text-gray-100 placeholder-gray-400/80 text-sm sm:text-base
                                resize-none overflow-hidden"
                         rows="1"

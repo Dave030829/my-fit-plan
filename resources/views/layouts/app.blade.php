@@ -17,6 +17,7 @@
     <title>My Fit Plan</title>
     @vite(entrypoints: 'resources/css/app.css')
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <style>
         .pt-safe-top {
@@ -28,7 +29,6 @@
 @php
     $currentRoute = Route::currentRouteName();
 @endphp
-
 
 <body
     class="pt-safe-top flex min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 ">
@@ -47,7 +47,7 @@
             </a>
             <a href="{{ route('workout.create') }}"
                 class="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-200 dark:hover:bg-gray-700">
-                <i class="fas fa-dumbbell mr-2"></i>Edzés tervező
+                <i class="fa-solid fa-calendar-days mr-2"></i>Edzés tervező
             </a>
             <a href="{{ route('calorie.calculator') }}"
                 class="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-200 dark:hover:bg-gray-700">
@@ -56,6 +56,14 @@
             <a href="{{ route('daily-tasks.index') }}"
                 class="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-200 dark:hover:bg-gray-700">
                 <i class="fa-solid fa-list-check mr-2"></i>Napi teendők
+            </a>
+            <a href="{{ route('workouts.follow') }}"
+                class="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-200 dark:hover:bg-gray-700">
+                <i class="fas fa-dumbbell mr-2"></i>Edzés követő
+            </a>
+            <a href="{{ route('challenges.index') }}"
+                class="block px-3 py-2 rounded-md hover:bg-white/10 transition-colors duration-200 dark:hover:bg-gray-700">
+                <i class="fa-solid fa-bullseye mr-2"></i>Kihívások
             </a>
         </nav>
 
@@ -163,7 +171,7 @@
                     <div class="text-center">
                         <h3 class="text-xl font-bold mb-4">Kapcsolat</h3>
                         <div class="space-y-2">
-                            <p><i class="fas fa-envelope mr-2"></i>gyorkyd030829@gmail.com</p>
+                            <p><i class="fas fa-envelope mr-2"></i>myfitplaneu@gmail.com</p>
                             <p><i class="fas fa-phone mr-2"></i>+36 1 234 5678</p>
                         </div>
                     </div>
@@ -208,11 +216,11 @@
                         : 'text-gray-500 dark:text-gray-400 group-hover:text-purple-500 dark:group-hover:text-teal-500';
 
                 $iconWorkout =
-                    $currentRoute === 'workout.create'
+                    $currentRoute === 'workouts.follow'
                         ? 'text-purple-500 dark:text-teal-500'
                         : 'text-gray-500 dark:text-gray-400 group-hover:text-purple-500 dark:group-hover:text-teal-500';
                 $textWorkout =
-                    $currentRoute === 'workout.create'
+                    $currentRoute === 'workouts.follow'
                         ? 'text-purple-500 dark:text-teal-500'
                         : 'text-gray-500 dark:text-gray-400 group-hover:text-purple-500 dark:group-hover:text-teal-500';
 
@@ -248,7 +256,7 @@
                 </a>
 
                 <!-- 2: Edzés tervező -->
-                <a href="{{ route('workout.create') }}"
+                <a href="{{ route('workouts.follow') }}"
                     class="flex flex-col items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <i class="fas fa-dumbbell text-xl {{ $iconWorkout }}"></i>
                     <span class="text-xs mt-1 {{ $textWorkout }}">Edzés</span>

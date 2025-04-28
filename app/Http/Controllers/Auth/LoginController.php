@@ -16,16 +16,13 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Validáció
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Eldöntjük, hogy a felhasználó pipálta-e be a 'Maradjak bejelentkezve' opciót
         $remember = $request->has('remember');
 
-        // Ha a 'remember' paraméter true, a Laravel beállítja a "remember_token"-t
         if (Auth::attempt($credentials, $remember)) {
             return redirect()->route('welcome')->with('success', 'Sikeresen bejelentkeztél!');
         }

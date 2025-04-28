@@ -10,33 +10,35 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     protected $primaryKey = 'user_id';
 
-    /**
-     * @var list<string>
-     */
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'username',
         'email',
         'password',
+        'is_admin',
     ];
 
-    /**
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function challenges()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+
+        return $this->belongsToMany(Challenge::class, 'challenge_user', 'user_id', 'challenge_id')
+            ->withPivot(['days_completed', 'last_completed_date'])
+            ->withTimestamps();
+    }
+
+    public function isAdmin()
+    {
+        return (bool) $this->is_admin;
     }
 }

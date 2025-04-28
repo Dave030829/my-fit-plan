@@ -56,7 +56,7 @@
                     </label>
                     <div class="relative">
                         <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="number" id="ageInput"
+                        <input type="number" id="ageInput" inputmode="numeric"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 transition-all bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300"
                             placeholder="Pl. 30" value="{{ $defaultAge }}" />
                     </div>
@@ -70,7 +70,7 @@
                     <div class="relative">
                         <i
                             class="fas fa-weight-hanging absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="number" id="weightInput"
+                        <input type="number" id="weightInput" inputmode="numeric"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 transition-all bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300"
                             placeholder="Pl. 70" value="{{ $defaultWeight }}" />
                     </div>
@@ -84,7 +84,7 @@
                     <div class="relative">
                         <i
                             class="fas fa-ruler-combined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                        <input type="number" id="heightInput"
+                        <input type="number" id="heightInput" inputmode="numeric"
                             class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 transition-all bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300"
                             placeholder="Pl. 175" value="{{ $defaultHeight }}" />
                     </div>

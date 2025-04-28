@@ -272,56 +272,6 @@
                 </div>
             </div>
 
-
-            <!-- Edit Quantity Modal -->
-            <div id="editModal"
-                class="fixed inset-0 hidden items-center justify-center p-5 bg-black/30 backdrop-blur-sm  z-50 text-sm md:text-base dark:text-white">
-                <div
-                    class="bg-white dark:bg-gray-800 backdrop-blur-sm p-5 md:p-8 rounded-2xl shadow-2xl w-full max-w-sm relative transform transition-all duration-300">
-                    <button
-                        class="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
-                        onclick="closeEditModal()">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                    <h2
-                        class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-teal-400 dark:to-blue-400 bg-clip-text text-transparent">
-                        <i class="fas fa-edit mr-2"></i>Mennyiség módosítása
-                    </h2>
-                    <div class="mb-4 md:mb-6">
-                        <label for="editQuantityInput"
-                            class="block mb-1 md:mb-2 font-semibold text-gray-700 dark:text-gray-300">Új mennyiség:</label>
-                        <div class="relative">
-                            <i
-                                class="fas fa-balance-scale absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <input id="editQuantityInput" type="number" min="1"
-                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 dark:bg-gray-900 transition-all"
-                                placeholder="Mennyiség">
-                        </div>
-                    </div>
-                    <div class="mb-4 md:mb-6">
-                        <label for="editUnitSelect"
-                            class="block mb-1 md:mb-2 font-semibold text-gray-700 dark:text-gray-300">Egység:</label>
-                        <div class="relative">
-                            <i
-                                class="fas fa-ruler-combined absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                            <select id="editUnitSelect"
-                                class="w-full pl-10 pr-3 md:pr-4 py-2 md:py-3 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-purple-500 dark:focus:border-teal-500 focus:ring-2 focus:ring-purple-200 dark:focus:ring-teal-200 appearance-none transition-all dark:bg-gray-900">
-                                <option value="db">darab</option>
-                                <option value="g">gramm (g)</option>
-                                <option value="ml">milliliter (ml)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="flex justify-end">
-                        <button
-                            class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:bg-gradient-to-r dark:from-teal-600 dark:to-blue-600 text-white px-4 md:px-6 py-2 md:py-3 rounded-xl hover:from-purple-700 hover:to-indigo-700 dark:hover:from-teal-700 dark:hover:to-blue-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-xs md:text-base"
-                            onclick="saveEditQuantity()">
-                            <i class="fas fa-save mr-2"></i>Mentés
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <style>
                 #calorieRing {
                     transition: stroke-dashoffset 0.6s ease;
@@ -491,14 +441,17 @@
       <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
       <td class="px-6 py-3 text-gray-900 dark:text-gray-300">${food.name}</td>
       <td class="px-6 py-3 text-gray-600 dark:text-gray-400">
-      <div class="flex items-center">
-      <span>${food.quantity} ${food.unit}</span>
-      <button class="text-blue-600 dark:text-blue-400 px-3 py-1 rounded-lg"
-      onclick="openEditModal(${food.id}, ${food.quantity}, '${food.unit}')">
-      <i class="fas fa-edit mr-1"></i>
-      </button>
-      </div>
-      </td>
+    <div class="flex items-center">
+        <input type="number" min="1"
+            class="bg-gray-50 border border-gray-300 rounded px-2 py-1 w-16 text-gray-800
+                   dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100"
+            value="${food.quantity}"
+            onchange="updateFoodQuantity(${food.id}, this.value, '${food.unit}')"
+        />
+        <span class="ml-2">${food.unit}</span>
+    </div>
+</td>
+
       <td class="px-6 py-3 font-semibold text-purple-600 dark:text-teal-400">${food.kcal ?? 'n.a.'} kcal</td>
       <td class="px-6 py-3 text-gray-600 dark:text-gray-400">${food.protein ?? 'n.a.'} g</td>
       <td class="px-6 py-3 text-gray-600 dark:text-gray-400">${food.fat ?? 'n.a.'} g</td>
@@ -519,71 +472,94 @@
                         let cardsHtml = '';
                         selectedFoods.forEach(food => {
                             cardsHtml += `
-                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-xl shadow hover:shadow-md transition-all">
-                    <!-- Felső sáv: Név és Törlés -->
-                    <div class="flex justify-between items-center mb-2">
-                        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-300">
-                            ${food.name}
-                        </h3>
-                        <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
-                                onclick="removeFood(${food.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+<div class="bg-gray-50 dark:bg-gray-700 p-3 rounded-xl shadow hover:shadow-md transition-all">
+    <!-- Felső sáv: Név és Törlés -->
+    <div class="flex justify-between items-center mb-2">
+        <h3 class="text-base font-semibold text-gray-800 dark:text-gray-300">
+            ${food.name}
+        </h3>
+        <button class="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300"
+                onclick="removeFood(${food.id})">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
 
-                    <!-- Mennyiség -->
-                    <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        Mennyiség: ${food.quantity} ${food.unit}
-                    </div>
+    <!-- Mennyiség -->
+    <div class="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2">
+        Mennyiség:
+        <input 
+            type="number" 
+            min="1"
+            class="w-16 px-2 py-1 bg-gray-100 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 
+                   rounded text-gray-800 dark:text-gray-100"
+            value="${food.quantity}"
+            onchange="updateFoodQuantity(${food.id}, this.value, '${food.unit}')"
+        />
+        <span class="ml-1">${food.unit}</span>
+    </div>
 
-                    <!-- Makrók grid elrendezésben -->
-                    <div class="grid grid-cols-2 gap-2 text-xs md:text-sm">
-                        <!-- Kcal -->
-                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
-                            <span class="font-semibold text-purple-600 dark:text-teal-400">
-                                ${food.kcal ?? 'n.a.'} kcal
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs">
-                                Kalória
-                            </span>
-                        </div>
-                        <!-- Fehérje -->
-                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
-                            <span class="font-semibold text-green-600">
-                                ${food.protein ?? 'n.a.'} g
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs">
-                                Fehérje
-                            </span>
-                        </div>
-                        <!-- Zsír -->
-                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
-                            <span class="font-semibold text-blue-600">
-                                ${food.fat ?? 'n.a.'} g
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs">
-                                Zsír
-                            </span>
-                        </div>
-                        <!-- Szénhidrát -->
-                        <div class="flex flex-col items-center justify-center p-2 bg-gray-200 dark:bg-gray-500 rounded">
-                            <span class="font-semibold text-orange-600">
-                                ${food.carbs ?? 'n.a.'} g
-                            </span>
-                            <span class="text-gray-500 dark:text-gray-400 text-xs">
-                                Szénhidrát
-                            </span>
-                        </div>
-                    </div>
+    <!-- Makrók (ikonos) -->
+    <link 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+      rel="stylesheet"
+    />
 
-                    <!-- Szerkesztés gomb -->
-                    <div class="flex justify-end mt-2">
-                        <button class="bg-blue-100 dark:bg-blue-800 text-blue-600 dark:text-blue-400 px-3 py-1 rounded text-xs md:text-sm"
-                                onclick="openEditModal(${food.id}, ${food.quantity}, '${food.unit}')">
-                            <i class="fas fa-edit mr-1"></i>Edit
-                        </button>
-                    </div>
-                </div>
+    <div class="w-full flex gap-1 p-1 text-[10px] leading-tight rounded-2xl 
+                bg-gray-100 dark:bg-gray-600">
+      <!-- Kalória -->
+      <div class="flex-1 rounded-xl flex flex-col items-center justify-center shadow-md p-2 
+                  bg-amber-100 dark:bg-amber-700">
+        <span class="font-semibold text-amber-900 dark:text-amber-100">
+          ${food.kcal ?? 'n.a.'} kcal
+        </span>
+        <i class="fa-solid fa-fire 
+                   text-amber-300 dark:text-amber-200
+                   bg-amber-50 dark:bg-amber-800
+                   p-2 text-sm mt-2 rounded-full shadow-inner">
+        </i>
+      </div>
+
+      <!-- Fehérje -->
+      <div class="flex-1 rounded-xl flex flex-col items-center justify-center shadow-md p-2
+                  bg-red-100 dark:bg-red-700">
+        <span class="font-semibold text-red-900 dark:text-red-100">
+          ${food.protein ?? 'n.a.'} g
+        </span>
+        <i class="fa-solid fa-bacon
+                   text-red-600 dark:text-red-200
+                   bg-red-50 dark:bg-red-800
+                   p-2 text-sm mt-2 rounded-full shadow-inner">
+        </i>
+      </div>
+
+      <!-- Szénhidrát -->
+      <div class="flex-1 rounded-xl flex flex-col items-center justify-center shadow-md p-2
+                  bg-blue-100 dark:bg-blue-700">
+        <span class="font-semibold text-blue-900 dark:text-blue-100">
+          ${food.carbs ?? 'n.a.'} g
+        </span>
+        <i class="fa-solid fa-bread-slice
+                   text-blue-600 dark:text-blue-200
+                   bg-blue-50 dark:bg-blue-800
+                   p-2 text-sm mt-2 rounded-full shadow-inner">
+        </i>
+      </div>
+
+      <!-- Zsír -->
+      <div class="flex-1 rounded-xl flex flex-col items-center justify-center shadow-md p-2
+                  bg-yellow-100 dark:bg-yellow-700">
+        <span class="font-semibold text-yellow-900 dark:text-yellow-100">
+          ${food.fat ?? 'n.a.'} g
+        </span>
+        <i class="fa-solid fa-droplet
+                   text-yellow-600 dark:text-yellow-200
+                   bg-yellow-50 dark:bg-yellow-800
+                   p-2 text-sm mt-2 rounded-full shadow-inner">
+        </i>
+      </div>
+    </div>
+</div>
+
             `;
                         });
                         selectedFoodsCards.innerHTML = cardsHtml;
@@ -692,6 +668,29 @@
                     if (selectedDate < sevenDaysAfter) {
                         selectedDate.setDate(selectedDate.getDate() + 1);
                         updateDateDisplay();
+                    }
+                }
+
+                async function updateFoodQuantity(foodDiaryId, newQty, unit) {
+                    try {
+                        const response = await fetch(`/food-diary/${foodDiaryId}`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            body: JSON.stringify({
+                                quantity: newQty,
+                                unit: unit
+                            })
+                        });
+                        if (!response.ok) {
+                            throw new Error('Hiba frissítés közben. Kód: ' + response.status);
+                        }
+                        await loadFoodDiary();
+                    } catch (error) {
+                        console.error(error);
+                        alert('Nem sikerült a mennyiséget módosítani!');
                     }
                 }
             </script>

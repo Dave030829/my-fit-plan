@@ -1,8 +1,10 @@
 <?php
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\FoodDiaryController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\WorkoutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WorkoutDayController;
 use App\Http\Controllers\FoodController;
@@ -96,4 +98,23 @@ Route::middleware(['auth'])->group(function () {
         ->name('daily-tasks.index');
     Route::post('daily-tasks', [DailyTaskController::class, 'store'])
         ->name('daily-tasks.store');
+
+    Route::get('/workouts/follow', [WorkoutController::class, 'follow'])->name('workouts.follow');
+    Route::post('/workouts/follow', [WorkoutController::class, 'saveFollow'])->name('workouts.saveFollow');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/challenges', [ChallengeController::class, 'index'])->name('challenges.index');
+
+    Route::post('/challenges', [ChallengeController::class, 'store'])->name('challenges.store');
+
+    Route::post('/challenges/{challenge}/select', [ChallengeController::class, 'select'])
+        ->name('challenges.select');
+
+    Route::post('/challenges/{challenge}/complete', [ChallengeController::class, 'complete'])
+        ->name('challenges.complete');
+
+    Route::delete('/challenges/{challenge}', [ChallengeController::class, 'destroy'])
+        ->name('challenges.destroy');
+
 });
