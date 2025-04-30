@@ -461,8 +461,6 @@
         </div>
     @endif
 
-    {{-- JavaScript --}}
-
 
     <script>
         let currentChallengeId = null;

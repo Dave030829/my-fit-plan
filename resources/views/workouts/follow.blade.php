@@ -28,7 +28,7 @@
                 @endforeach
             </div>
 
-            <!-- Edzés újrakezdése gomb (NEM lebeg) -->
+            <!-- Edzés újrakezdése gomb -->
             <div class="flex justify-center mb-6">
                 <button type="button"
                     class="bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-teal-700 dark:to-blue-500
@@ -62,7 +62,7 @@
                             </div>
                         </div>
 
-                        <!-- Nap neve (csak kijelzés) -->
+                        <!-- Nap neve -->
                         <div class="mb-6 md:mb-8">
                             <label
                                 class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 md:mb-2">
@@ -91,7 +91,7 @@
                                         </h3>
                                     </div>
 
-                                    <!-- Gyakorlat neve: readonly -->
+                                    <!-- Gyakorlat neve -->
                                     <div class="mb-3 md:mb-4">
                                         <label
                                             class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 md:mb-2">

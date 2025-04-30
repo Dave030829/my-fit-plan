@@ -43,7 +43,7 @@
                     @csrf
                     <input type="hidden" name="date" value="{{ $date }}">
 
-                    <!-- Kártyák konténere (itt lesz a drag & drop) -->
+                    <!-- Kártyák konténere -->
                     <div id="taskList" class="flex flex-col gap-3">
                         @foreach ($tasks as $index => $task)
                             <div
